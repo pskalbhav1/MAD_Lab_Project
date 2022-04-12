@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     TextView tx1,ex,ex1,txt2,txt3;
     boolean admin=false,student=false;
     String role="admin";
-    String w="m",x="admin",y="admin",z="student";
+    String w="m",x="admin",y="admin",z;
     private DBHandler dbHandler;
     public abstract class SQLiteOpenHelper{};
 
@@ -79,13 +79,26 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //Make corrections
-                String query = "Select * From STUDENTS where Name = '"+ed1.getText().toString() +"'"+", Password='"+ed2.getText().toString()+"'";
-               Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
-
-                    tx1.setVisibility(View.VISIBLE);
-                    tx1.setBackgroundColor(Color.RED);
-
-                
+                String query = "Select * From STUDENTS where Reg = '"+ed3.getText().toString() +"'";
+                if(ed3.getText().toString().isEmpty() || ed2.getText().toString().isEmpty() || ed1.getText().toString().isEmpty() || z==" ")
+                {
+                    Toast.makeText(getApplicationContext(),"Fill in all the details", Toast.LENGTH_SHORT).show();
+                    onLogin(v);
+                }
+                else if(query.contains(ed1.getText().toString()) && query.contains("admin") && query.contains(ed2.getText().toString()) && role=="admin")
+                {
+                    Toast.makeText(getApplicationContext(), "Admin Login", Toast.LENGTH_SHORT).show();
+                    onProfile(v);
+                }
+                else if(query.contains(ed1.getText().toString()) && query.contains("student") && query.contains(ed2.getText().toString()) && role=="student")
+                {
+                    Toast.makeText(getApplicationContext(), "Student Login", Toast.LENGTH_SHORT).show();
+                    onProfile(v);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                    onLogin(v);
+                }
             }
         });
 
@@ -115,9 +128,6 @@ public class MainActivity extends Activity {
         ed3 = (EditText) findViewById(R.id.editText3);
 
         dbHandler = new DBHandler(MainActivity.this);
-        w="admin";
-        y="admin";
-        z="admin";
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,9 +135,16 @@ public class MainActivity extends Activity {
                 x=ed1.getText().toString();
                 y=ed2.getText().toString();
                 z=role;
-                dbHandler.addNewCourse(w,x,y,z);
-                Toast.makeText(getApplicationContext(),"Registered successfully", Toast.LENGTH_SHORT).show();
-                onLogin(view);
+                if(ed3.getText().toString().isEmpty() || ed2.getText().toString().isEmpty() || ed1.getText().toString().isEmpty() || z==" ")
+                {
+                    Toast.makeText(getApplicationContext(),"Fill in all the details", Toast.LENGTH_SHORT).show();
+                    onRegister(v);
+                }
+                else {
+                    dbHandler.addNewCourse(w, x, y, z);
+                    Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
+                    onLogin(view);
+                }
             }
         });
 
