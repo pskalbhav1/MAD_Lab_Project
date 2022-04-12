@@ -16,7 +16,7 @@ import java.net.DatagramPacket;
 import java.util.jar.Attributes;
 
 public class MainActivity extends Activity {
-    Button b1, b2;
+    Button b1, b2,b3;
     EditText ed1, ed2,ed3;
     TextView tx1,ex,ex1,txt2,txt3;
     boolean admin=false,student=false;
@@ -88,12 +88,12 @@ public class MainActivity extends Activity {
                 else if(query.contains(ed1.getText().toString()) && query.contains("admin") && query.contains(ed2.getText().toString()) && role=="admin")
                 {
                     Toast.makeText(getApplicationContext(), "Admin Login", Toast.LENGTH_SHORT).show();
-                    onProfile(v);
+                    onProfile_admin(v);
                 }
                 else if(query.contains(ed1.getText().toString()) && query.contains("student") && query.contains(ed2.getText().toString()) && role=="student")
                 {
                     Toast.makeText(getApplicationContext(), "Student Login", Toast.LENGTH_SHORT).show();
-                    onProfile(v);
+                    onProfile_student(v);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
@@ -164,7 +164,71 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void onProfile(View view){
+    public void onProfile_admin(View view){
         setContentView(R.layout.profile);
+        b1=(Button) findViewById(R.id.button);
+        b2 = (Button) findViewById(R.id.button2);
+        b3=(Button) findViewById(R.id.button3);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Check_Booking(v);
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Check_Request(v);
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLogout(v);
+            }
+        });
+    }
+
+    public void onProfile_student(View view){
+        setContentView(R.layout.profile_student);
+        b1=(Button) findViewById(R.id.button);
+        b2 = (Button) findViewById(R.id.button2);
+        b3=(Button) findViewById(R.id.button3);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBooking(v);
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRequest(v);
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLogout(v);
+            }
+        });
+    }
+
+    public void onLogout(View v){
+        setContentView(R.layout.activity_main);
+    }
+    public void onBooking(View v){
+        setContentView(R.layout.slot);
+    }
+
+    public void onRequest(View v){
+        setContentView(R.layout.request);
+    }
+    public void Check_Booking(View v){
+        setContentView(R.layout.slot_view);
+    }
+
+    public void Check_Request(View v){
+        setContentView(R.layout.grant_request);
     }
 }
