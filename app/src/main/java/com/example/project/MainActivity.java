@@ -1,9 +1,6 @@
 package com.example.project;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioButton;
-
-import java.net.DatagramPacket;
-import java.util.jar.Attributes;
 
 public class MainActivity extends Activity {
     Button b1, b2,b3;
@@ -68,7 +62,7 @@ public class MainActivity extends Activity {
     public void onLogin(View view) {
         setContentView(R.layout.login);
 
-        b1 = (Button) findViewById(R.id.button);
+        b1 = (Button) findViewById(R.id.buttony);
         ed1 = (EditText) findViewById(R.id.editText1);
         ed2 = (EditText) findViewById(R.id.editText2);
         b2 = (Button) findViewById(R.id.button2);
@@ -84,16 +78,15 @@ public class MainActivity extends Activity {
                 {
                     Toast.makeText(getApplicationContext(),"Fill in all the details", Toast.LENGTH_SHORT).show();
                     onLogin(v);
-                }
-                else if(query.contains(ed1.getText().toString()) && query.contains("admin") && query.contains(ed2.getText().toString()) && role=="admin")
-                {
-                    Toast.makeText(getApplicationContext(), "Admin Login", Toast.LENGTH_SHORT).show();
-                    onProfile_admin(v);
-                }
-                else if(query.contains(ed1.getText().toString()) && query.contains("student") && query.contains(ed2.getText().toString()) && role=="student")
+                }else if(query.contains(ed1.getText().toString())  && query.contains(ed2.getText().toString()) && student )
                 {
                     Toast.makeText(getApplicationContext(), "Student Login", Toast.LENGTH_SHORT).show();
-                    onProfile_student(v);
+                   // onProfile_student(v);
+                }
+                else if(query.contains(ed1.getText().toString()) && query.contains(ed2.getText().toString()) && admin )
+                {
+                    Toast.makeText(getApplicationContext(), "Admin Login", Toast.LENGTH_SHORT).show();
+                    //onProfile_admin(v);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
@@ -160,6 +153,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 onLogin(view);
+
             }
         });
     }
@@ -191,7 +185,7 @@ public class MainActivity extends Activity {
 
     public void onProfile_student(View view){
         setContentView(R.layout.profile_student);
-        b1=(Button) findViewById(R.id.button);
+        b1=(Button)findViewById(R.id.button);
         b2 = (Button) findViewById(R.id.button2);
         b3=(Button) findViewById(R.id.button3);
         b1.setOnClickListener(new View.OnClickListener() {
