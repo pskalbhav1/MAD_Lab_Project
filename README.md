@@ -1,6 +1,6 @@
 # MAD_Lab_Project
 
-- fix authentication
+- fix authentication 
 - add booking 
-- add permission/requests
+- add permission/requests (half done)
 - frontend
