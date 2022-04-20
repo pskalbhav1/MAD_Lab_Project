@@ -31,14 +31,11 @@
         android:text="Grant Request"
         android:onClick="Check_Request"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button1"
-        android:text="Permission"
-        android:onClick="Check_Request"/>
 
+    <ListView
+        android:id="@+id/listyx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button3"
