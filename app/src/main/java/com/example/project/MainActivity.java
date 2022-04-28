@@ -1,15 +1,32 @@
 package com.example.project;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.RadioButton;
 
+import java.util.Calendar;
+
 public class MainActivity extends Activity {
+    String[] Rooms = {"AB5 303","AB5 304","AB5 308","NLH 203","NLH 304"};
+    String[] Booked_Rooms = {"NLH 203","NLH 304"};
+
     Button b_login,b_register,b_cancel,b_logout,b_book,b_booking,b_request;
     EditText ed_name, ed_regno,ed_psw;
     TextView t_login,t_register;
@@ -17,6 +34,8 @@ public class MainActivity extends Activity {
     String role="admin";
     String regno="m",name="admin",psw="admin",c_role;
     private DBHandler dbHandler;
+    ListView slot_list;
+    private Object Spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +91,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //Make corrections
-                String query = "Select * From STUDENTS where Reg = '"+ed_regno.getText().toString() +"'";
+                String query;
+
+                query = "Select * From STUDENTS where Name = '"+ed_name.getText().toString() +"'";
                 if(query.isEmpty())
                 {
                     onRegister(v);
                 }
+
                 else if(ed_regno.getText().toString().isEmpty() || ed_psw.getText().toString().isEmpty() || ed_name.getText().toString().isEmpty() || c_role==" ")
                 {
                     Toast.makeText(getApplicationContext(),"Fill in all the details", Toast.LENGTH_SHORT).show();
@@ -84,12 +106,12 @@ public class MainActivity extends Activity {
                 }else if(query.contains(ed_name.getText().toString())  && query.contains(ed_psw.getText().toString()) && student && !admin)
                 {
                     Toast.makeText(getApplicationContext(), "Student Login", Toast.LENGTH_SHORT).show();
-                    // onProfile_student(v);
+                    onProfile_student(v);
                 }
                 else if(query.contains(ed_name.getText().toString()) && query.contains(ed_psw.getText().toString()) && admin && !student)
                 {
                     Toast.makeText(getApplicationContext(), "Admin Login", Toast.LENGTH_SHORT).show();
-                    //onProfile_admin(v);
+                    onProfile_admin(v);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
@@ -217,7 +239,35 @@ public class MainActivity extends Activity {
 
     public void onBooking(View v){
         setContentView(R.layout.slot);
+        /*Spinner spinner =(Spinner)findViewById(R.id.unbooked_rooms);
+        ArrayAdapter<CharSequence>adapter =ArrayAdapter.createFromResource(this,R.array.unbooked_room,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);*/
     }
+    /*public void onItemSelected(AdapterView<?>parent,View view,int pos,long id)
+    {
+        parent.getItemAtPosition(pos);
+    }
+
+    public Dialog onCreateDialog(Bundle savedInstanceState)
+    {
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener) this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");}
+
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+    {
+        // Do something with the time chosen by the user
+
+    }*/
+
 
     public void onRequest(View v){
         setContentView(R.layout.request);
@@ -225,6 +275,9 @@ public class MainActivity extends Activity {
 
     public void Check_Booking(View v){
         setContentView(R.layout.slot_view);
+        slot_list=findViewById(R.id.listyx);
+        ArrayAdapter<String> slotAdapter = new ArrayAdapter<String>(this, R.layout.slot_view, Booked_Rooms);
+        slot_list.setAdapter(slotAdapter);
     }
 
     public void Check_Request(View v){
