@@ -1,4 +1,5 @@
-<?xml version = "1.0" encoding = "utf-8"?>
+<?xml version="1.0"encoding="utf-8"?>
+
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
     xmlns:tools = "http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,31 +21,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
-        android:text="Book Room"
-        android:onClick="onBooking"/>
+        android:onClick="onBooking"
+        android:text="Book Room" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/button"
-        android:text="Permission"
-        android:onClick="onRequest"/>
+        android:onClick="onRequest"
+        android:text="Permission" />
+
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button1"
-        android:text="Permission"
-        android:onClick="onRequest"/>
-
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:onClick="onLogout"/>
+        android:onClick="onLogout"
+        android:text="Logout" />
 
 </RelativeLayout>
